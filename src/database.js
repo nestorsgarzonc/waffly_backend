@@ -6,7 +6,9 @@ import config from './config'
         config.mongodbURL,
         {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            //useFindAndModify: false,
+            useCreateIndex: true
         }
     )
     console.log(`Database is connected to: ${db.connection.name}`);

@@ -42,6 +42,28 @@ export const postUser = async (req, res) => {
     })
 }
 
+//TODO: check parameters
+export const addToServiceHistory = async (req, res) => {
+    let serviceObj = {
+        service_name: req.body.service_name,
+        cost: req.body.cost,
+        is_presencial: req.body.is_presencial,
+        location: req.body.location,
+        freelancer_id: req.body.freelancer_id,
+        date: new Date(),
+    }
+    User.findByIdAndUpdate(
+        req.params.id,
+        { $push: { services_history: serviceObj } },
+        (err, __) => {
+            if (err) {
+                return res.status(400).json({ ok: false, message: err })
+            }
+            res.json({ ok: true, message: 'Agregado correctamente' })
+        }
+    )
+}
+
 export const updateUser = async (req, res) => {
     let body = _.pick(req.body, ['first_name', 'last_name', 'email', 'img', 'status', 'location', 'gender', 'username'])
     User.findByIdAndUpdate(req.params.id, body, (err, __) => {

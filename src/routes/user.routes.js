@@ -10,6 +10,8 @@ router.post('/', userController.postUser)
 
 router.put('/:id', userController.updateUser)
 
+router.put('/addService/:id', userController.addToServiceHistory)
+
 router.delete('/:id', userController.deleteUser)
 
 export default router;
