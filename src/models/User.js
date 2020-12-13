@@ -51,7 +51,6 @@ const userSchema = new Schema({
         type: Array,
         default: [],
     }
-    //TODO: add consumed services
 }, {
     versionKey: false,
     timestamps: true

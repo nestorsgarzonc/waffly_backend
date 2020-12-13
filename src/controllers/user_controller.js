@@ -2,7 +2,7 @@ import User from '../models/User'
 import bcrypt from 'bcrypt'
 import _ from 'underscore'
 
-export const findAllUsers = async (__, res) => {
+exports.findAllUsers = async (__, res) => {
     User.find()
         .exec((err, users) => {
             if (err) {
@@ -12,7 +12,7 @@ export const findAllUsers = async (__, res) => {
         });
 }
 
-export const findUserById = async (req, res) => {
+exports.findUserById = async (req, res) => {
     User.findById(req.params.id)
         .exec((err, user) => {
             if (err) {
@@ -22,7 +22,7 @@ export const findUserById = async (req, res) => {
         });
 }
 
-export const postUser = async (req, res) => {
+exports.postUser = async (req, res) => {
     let user = User({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -42,14 +42,14 @@ export const postUser = async (req, res) => {
     })
 }
 
-//TODO: check parameters
-export const addToServiceHistory = async (req, res) => {
+exports.addToServiceHistory = async (req, res) => {
     let serviceObj = {
+        freelancer_id: req.body.freelancer_id,
+        service_id: req.body.service_id,
         service_name: req.body.service_name,
         cost: req.body.cost,
         is_presencial: req.body.is_presencial,
         location: req.body.location,
-        freelancer_id: req.body.freelancer_id,
         date: new Date(),
     }
     User.findByIdAndUpdate(
@@ -64,7 +64,7 @@ export const addToServiceHistory = async (req, res) => {
     )
 }
 
-export const updateUser = async (req, res) => {
+exports.updateUser = async (req, res) => {
     let body = _.pick(req.body, ['first_name', 'last_name', 'email', 'img', 'status', 'location', 'gender', 'username'])
     User.findByIdAndUpdate(req.params.id, body, (err, __) => {
         if (err) {
@@ -74,7 +74,7 @@ export const updateUser = async (req, res) => {
     })
 }
 
-export const deleteUser = async (req, res) => {
+exports.deleteUser = async (req, res) => {
     User.findByIdAndUpdate(req.params.id, { status: false }, (err, deletedUser) => {
         if (err) {
             return res.status(404).json({ ok: false, message: err })
