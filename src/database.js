@@ -7,7 +7,7 @@ import config from './config'
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-            //useFindAndModify: false,
+            useFindAndModify: false,
             useCreateIndex: true
         }
     )
