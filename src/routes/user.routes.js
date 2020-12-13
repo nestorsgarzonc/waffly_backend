@@ -6,8 +6,6 @@ router.get('/', userController.findAllUsers)
 
 router.get('/:id', userController.findUserById)
 
-router.post('/', userController.postUser)
-
 router.put('/:id', userController.updateUser)
 
 router.put('/addService/:id', userController.addToServiceHistory)

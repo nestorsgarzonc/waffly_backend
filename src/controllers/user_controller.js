@@ -1,5 +1,4 @@
 import User from '../models/User'
-import bcrypt from 'bcrypt'
 import _ from 'underscore'
 
 exports.findAllUsers = async (__, res) => {
@@ -22,25 +21,6 @@ exports.findUserById = async (req, res) => {
         });
 }
 
-exports.postUser = async (req, res) => {
-    let user = User({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        username: req.body.username,
-        email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, 10),
-        location: req.body.location,
-        document: req.body.document,
-        gender: req.body.gender,
-        img: req.body.img
-    })
-    user.save((err, new_user) => {
-        if (err) {
-            return res.status(400).json({ ok: false, message: err })
-        }
-        res.json({ ok: true, message: 'Usuario creado correctamente', ...new_user['_doc'] })
-    })
-}
 
 exports.addToServiceHistory = async (req, res) => {
     let serviceObj = {
@@ -75,10 +55,10 @@ exports.updateUser = async (req, res) => {
 }
 
 exports.deleteUser = async (req, res) => {
-    User.findByIdAndUpdate(req.params.id, { status: false }, (err, deletedUser) => {
+    User.findByIdAndUpdate(req.params.id, { status: false }, (err, __) => {
         if (err) {
             return res.status(404).json({ ok: false, message: err })
         }
-        res.json({ ok: true, message: 'Usuario eliminado correctamente', ...deletedUser['_doc'] })
+        res.json({ ok: true, message: 'Usuario eliminado correctamente' })
     })
 }

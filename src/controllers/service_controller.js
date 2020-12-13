@@ -1,6 +1,6 @@
 import Task from '../models/Service'
 
-exports.findAllTasks = async (req, res) => {
+exports.findAllTasks = async (_, res) => {
     const tasks = await Task.find()
     res.json(tasks)
 }
