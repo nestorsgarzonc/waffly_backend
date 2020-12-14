@@ -1,6 +1,6 @@
 import User from '../models/User'
 import bcrypt from 'bcrypt'
-//import _ from 'underscore'
+import { validationResult } from 'express-validator'
 import jwt from 'jsonwebtoken'
 
 exports.userLogin = (req, res) => {
@@ -18,6 +18,10 @@ exports.userLogin = (req, res) => {
 }
 
 exports.userSignUp = async (req, res) => {
+    const errors = validationResult(req)
+    if (errors) {
+        return res.status(422).json({ ok: false, message: errors.errors })
+    }
     let user = User({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
