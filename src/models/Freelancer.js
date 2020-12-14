@@ -47,7 +47,7 @@ const freelancerSchema = new Schema({
     },
     status: {
         type: Boolean,
-        default: false
+        default: true
     },
 }, {
     versionKey: false,
