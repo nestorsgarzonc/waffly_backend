@@ -9,7 +9,7 @@ exports.findOneTask = async (req, res) => {
     const tasks = await Task.findById(req.params.id)
     res.json(tasks)
 }
-
+//TODO: arreglar segun modelo
 exports.createTasks = async (req, res) => {
     const new_task = new Task({
         title: req.body.title,
