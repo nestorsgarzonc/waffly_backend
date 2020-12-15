@@ -28,10 +28,10 @@ const freelancerSchema = new Schema({
         unique: true,
         required: [true, "El documento es requerido"]
     },
-    services: {
-        type: Array,
-        default: []
-    },
+    services: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Service'
+    }],
     gender: {
         type: String,
         default: ''

@@ -32,6 +32,10 @@ const serviceSchema = new Schema({
         type: Number,
         required: true
     },
+    img: {
+        type: String,
+        required: true
+    },
     status: {
         type: Boolean,
         default: true

@@ -2,6 +2,7 @@ import express from 'express'
 import morgan from 'morgan'
 import ServiceRoutes from './routes/service.routes'
 import UserRoutes from './routes/user.routes'
+import FreelancerRoutes from './routes/freelancer.routes'
 import AuthRoutes from './routes/auth.routes'
 
 const app = express()
@@ -13,8 +14,9 @@ app.use(morgan('dev'))
 
 app.use(express.json())
 
-app.use('/api/tasks', ServiceRoutes)
+app.use('/api/service', ServiceRoutes)
 app.use('/api/user', UserRoutes)
+app.use('/api/freelancer', FreelancerRoutes)
 app.use('/api/auth', AuthRoutes)
 
 export default app
