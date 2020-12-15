@@ -50,6 +50,10 @@ const userSchema = new Schema({
     services_history: {
         type: Array,
         default: [],
+    },
+    type: {
+        type: String,
+        default: 'user'
     }
 }, {
     versionKey: false,

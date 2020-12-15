@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose'
+import uniqueValidator from 'mongoose-unique-validator'
 
 const freelancerSchema = new Schema({
     first_name: {
@@ -14,7 +15,8 @@ const freelancerSchema = new Schema({
     username: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        unique: true,
     },
     location: {
         type: String,
@@ -23,6 +25,7 @@ const freelancerSchema = new Schema({
     },
     document: {
         type: Number,
+        unique: true,
         required: [true, "El documento es requerido"]
     },
     services: {
@@ -35,6 +38,7 @@ const freelancerSchema = new Schema({
     },
     email: {
         type: String,
+        unique: true,
         required: true
     },
     img: {
@@ -49,6 +53,10 @@ const freelancerSchema = new Schema({
         type: Boolean,
         default: true
     },
+    type: {
+        type: String,
+        default: 'freelancer'
+    }
 }, {
     versionKey: false,
     timestamps: true
@@ -60,5 +68,7 @@ freelancerSchema.methods.toJSON = function () {
     delete freelancerObject.password;
     return freelancerObject
 }
+
+freelancerSchema.plugin(uniqueValidator, { message: '{PATH} debe ser unico' })
 
 export default model('Freelancer', freelancerSchema)

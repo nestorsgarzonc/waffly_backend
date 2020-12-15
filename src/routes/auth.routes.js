@@ -6,14 +6,33 @@ import * as authController from '../controllers/auth_controller'
 const router = Router()
 
 router.post(
-    '/login',
+    '/user/login',
     [body('email').isEmail().withMessage('Ingresa un email valido')],
-    authController.userLogin)
+    authController.userLogin
+)
 
 router.post(
-    '/signup',
-    [body('email').isEmail().withMessage('Ingresa un email valido')],
+    '/user/signup',
+    [
+        body('email').isEmail().withMessage('Ingresa un email valido'),
+        body('img').isURL().withMessage('Ingresa un link valido'),
+    ],
     authController.userSignUp
+)
+
+router.post(
+    '/freelancer/login',
+    [body('email').isEmail().withMessage('Ingresa un email valido')],
+    authController.freelancerLogin
+)
+
+router.post(
+    '/freelancer/signup',
+    [
+        body('email').isEmail().withMessage('Ingresa un email valido'),
+        body('img').isURL().withMessage('Ingresa un link valido'),
+    ],
+    authController.freelancerSignUp
 )
 
 export default router
