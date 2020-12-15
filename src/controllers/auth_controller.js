@@ -4,6 +4,10 @@ import { validationResult } from 'express-validator'
 import jwt from 'jsonwebtoken'
 
 exports.userLogin = (req, res) => {
+    const errors = validationResult(req)
+    if (errors.errors.length > 0) {
+        return res.status(422).json({ ok: false, message: errors.errors })
+    }
     User.findOne({ email: req.body.email }, (err, user) => {
         if (err) {
             return res.status(404).json({ ok: false, message: 'Error ', err })
@@ -19,7 +23,7 @@ exports.userLogin = (req, res) => {
 
 exports.userSignUp = async (req, res) => {
     const errors = validationResult(req)
-    if (errors) {
+    if (errors.errors.length > 0) {
         return res.status(422).json({ ok: false, message: errors.errors })
     }
     let user = User({

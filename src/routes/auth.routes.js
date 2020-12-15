@@ -5,8 +5,15 @@ import * as authController from '../controllers/auth_controller'
 
 const router = Router()
 
-router.post('/login', authController.userLogin)
+router.post(
+    '/login',
+    [body('email').isEmail().withMessage('Ingresa un email valido')],
+    authController.userLogin)
 
-router.post('/signup', [body('email').isEmail().withMessage('Ingresa un email valido')], authController.userSignUp)
+router.post(
+    '/signup',
+    [body('email').isEmail().withMessage('Ingresa un email valido')],
+    authController.userSignUp
+)
 
 export default router
