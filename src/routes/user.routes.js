@@ -9,10 +9,10 @@ router.get('/', userController.findAllUsers)
 
 router.get('/:id', userController.findUserById)
 
-router.put('/:id', [token.checkToken], userController.updateUser)
+router.put('/:id', [token.checkUserToken], userController.updateUser)
 
-router.put('/addService/:id', [token.checkToken], userController.addToServiceHistory)
+router.put('/addService/:id', [token.checkUserToken], userController.addToServiceHistory)
 
-router.delete('/:id', [token.checkToken], userController.deleteUser)
+router.delete('/:id', [token.checkUserToken], userController.deleteUser)
 
 export default router;

@@ -5,20 +5,20 @@ import * as token from '../middleware/auth_token'
 
 const router = Router();
 
-router.get('/', token.checkToken, serviceController.findAllServices)
+router.get('/', token.checkUserToken, serviceController.findAllServices)
 
-router.get('/:id', token.checkToken, serviceController.findServiceById)
+router.get('/:id', token.checkUserToken, serviceController.findServiceById)
 
 router.post(
     '/addService/:id',
     [
-        token.checkToken,
+        token.checkUserToken,
         body('img').isURL().withMessage('Ingresa un link valido'),
     ],
     serviceController.createService
 )
 
-router.delete('/:id', token.checkToken, serviceController.deleteService)
+router.delete('/:id', token.checkUserToken, serviceController.deleteService)
 
 //TODO: add find by category
 export default router;
