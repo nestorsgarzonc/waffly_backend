@@ -28,6 +28,14 @@ const serviceSchema = new Schema({
         type: String,
         trim: true
     },
+    reviews: [{
+        stars: { type: Number },
+        review: { type: String }
+    }],
+    num_purchases: {
+        type: Number,
+        default: 0
+    },
     price: {
         type: Number,
         required: true

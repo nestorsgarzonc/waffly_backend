@@ -1,4 +1,5 @@
 import User from '../models/User'
+import Service from '../models/Service'
 import _ from 'underscore'
 
 exports.findAllUsers = async (__, res) => {
@@ -26,10 +27,6 @@ exports.addToServiceHistory = async (req, res) => {
     let serviceObj = {
         freelancer_id: req.body.freelancer_id,
         service_id: req.body.service_id,
-        service_name: req.body.service_name,
-        cost: req.body.cost,
-        is_presencial: req.body.is_presencial,
-        location: req.body.location,
         date: new Date(),
     }
     User.findByIdAndUpdate(
@@ -39,7 +36,16 @@ exports.addToServiceHistory = async (req, res) => {
             if (err) {
                 return res.status(400).json({ ok: false, message: err })
             }
-            res.json({ ok: true, message: 'Agregado correctamente' })
+            Service.findByIdAndUpdate(
+                serviceObj.service_id,
+                { $inc: { num_purchases: 1 } },
+                (err_2, ___) => {
+                    if (err_2) {
+                        return res.status(400).json({ ok: false, message: err_2 })
+                    }
+                    res.json({ ok: true, message: 'Agregado correctamente' })
+                }
+            )
         }
     )
 }

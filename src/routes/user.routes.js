@@ -14,5 +14,6 @@ router.put('/:id', [token.checkUserToken], userController.updateUser)
 router.put('/addService/:id', [token.checkUserToken], userController.addToServiceHistory)
 
 router.delete('/:id', [token.checkUserToken], userController.deleteUser)
+//TODO: add security layer doing: if username match
 
 export default router;
