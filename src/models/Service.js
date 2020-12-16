@@ -30,7 +30,8 @@ const serviceSchema = new Schema({
     },
     reviews: [{
         stars: { type: Number },
-        review: { type: String }
+        review: { type: String },
+        user_id: { type: Schema.Types.ObjectId }
     }],
     num_purchases: {
         type: Number,

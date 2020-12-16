@@ -18,6 +18,8 @@ router.post(
     serviceController.createService
 )
 
+router.post('/reviews/:id', [token.checkUserToken], serviceController.addReviewToProduct)
+
 router.delete('/:id', token.checkUserToken, serviceController.deleteService)
 
 //TODO: add find by category

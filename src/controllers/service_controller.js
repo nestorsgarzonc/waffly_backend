@@ -52,4 +52,25 @@ exports.deleteService = async (req, res) => {
     )
 }
 
-//TODO: Add review to service
+
+exports.addReviewToProduct = async (req, res) => {
+    const errors = validationResult(req)
+    if (errors.errors.length > 0) {
+        return res.status(422).json({ ok: false, message: errors.errors })
+    }
+    let serviceObj = {
+        stars: req.body.stars,
+        review: req.body.review,
+        user_id: req.body.user_id,
+    }
+    Service.findByIdAndUpdate(
+        req.params.id,
+        { $push: { reviews: serviceObj } },
+        (err, __) => {
+            if (err) {
+                return res.status(400).json({ ok: false, message: err })
+            }
+            res.json({ ok: true, message: 'Calificacion añadida correctamente' })
+        }
+    )
+}
