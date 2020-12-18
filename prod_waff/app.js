@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -16,8 +18,6 @@ var _user = _interopRequireDefault(require("./routes/user.routes"));
 var _freelancer = _interopRequireDefault(require("./routes/freelancer.routes"));
 
 var _auth = _interopRequireDefault(require("./routes/auth.routes"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var app = (0, _express["default"])();
 app.disable('x-powered-by');

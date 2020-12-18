@@ -1,10 +1,15 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.checkFreelancerToken = exports.checkUserToken = exports.checkToken = void 0;
+
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-exports.checkToken = function (req, res, next) {
+var checkToken = function checkToken(req, res, next) {
   var token = req.get('token');
 
   _jsonwebtoken["default"].verify(token, process.env.SEED, function (err, _) {
@@ -20,7 +25,9 @@ exports.checkToken = function (req, res, next) {
   });
 };
 
-exports.checkUserToken = function (req, res, next) {
+exports.checkToken = checkToken;
+
+var checkUserToken = function checkUserToken(req, res, next) {
   var token = req.get('token');
 
   _jsonwebtoken["default"].verify(token, process.env.SEED, function (err, decoded) {
@@ -45,7 +52,9 @@ exports.checkUserToken = function (req, res, next) {
   });
 };
 
-exports.checkFreelancerToken = function (req, res, next) {
+exports.checkUserToken = checkUserToken;
+
+var checkFreelancerToken = function checkFreelancerToken(req, res, next) {
   var token = req.get('token');
 
   _jsonwebtoken["default"].verify(token, process.env.SEED, function (err, decoded) {
@@ -69,3 +78,5 @@ exports.checkFreelancerToken = function (req, res, next) {
     next();
   });
 };
+
+exports.checkFreelancerToken = checkFreelancerToken;
