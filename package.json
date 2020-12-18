@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js --exec babel-node"
+    "dev": "nodemon src/index.js --exec babel-node",
+    "start": "node src/index.js --exec babel-node"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sebastian Garzon",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
