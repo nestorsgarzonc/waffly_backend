@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-exports.checkToken = (req, res, next) => {
+export const checkToken = (req, res, next) => {
     let token = req.get('token')
     jwt.verify(token, process.env.SEED, (err, _) => {
         if (err) {
@@ -10,7 +10,7 @@ exports.checkToken = (req, res, next) => {
     })
 }
 
-exports.checkUserToken = (req, res, next) => {
+export const checkUserToken = (req, res, next) => {
     let token = req.get('token')
     jwt.verify(token, process.env.SEED, (err, decoded) => {
         if (err) {
@@ -24,7 +24,7 @@ exports.checkUserToken = (req, res, next) => {
     })
 }
 
-exports.checkFreelancerToken = (req, res, next) => {
+export const checkFreelancerToken = (req, res, next) => {
     let token = req.get('token')
     jwt.verify(token, process.env.SEED, (err, decoded) => {
         if (err) {

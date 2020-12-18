@@ -2,32 +2,32 @@ import Freelancer from '../models/Freelancer'
 import { Service, categories } from '../models/Service'
 import { validationResult } from 'express-validator'
 
-exports.findAllServices = async (_, res) => {
+export const findAllServices = async (_, res) => {
     const services = await Service.find()
     res.json({ ok: true, services })
 }
 
-exports.findServiceById = async (req, res) => {
+export const findServiceById = async (req, res) => {
     const services = await Service.findById(req.params.id)
     res.json({ ok: true, services })
 }
 
-exports.findServicesByCategories = async (req, res) => {
+export const findServicesByCategories = async (req, res) => {
     const services = await Service.find({ category: req.params.category })
     res.json({ ok: true, services })
 }
 
-exports.findServicesByName = async (req, res) => {
+export const findServicesByName = async (req, res) => {
     let regex = new RegExp(req.params.query, 'i')
     const services = await Service.find({ title: regex })
     res.json({ ok: true, services })
 }
 
-exports.getCategories = async (_, res) => {
+export const getCategories = async (_, res) => {
     res.json({ categories: categories.values })
 }
 
-exports.createService = async (req, res) => {
+export const createService = async (req, res) => {
     const errors = validationResult(req)
     if (errors.errors.length > 0) {
         return res.status(422).json({ ok: false, message: errors.errors })
@@ -57,7 +57,7 @@ exports.createService = async (req, res) => {
     })
 }
 
-exports.deleteService = async (req, res) => {
+export const deleteService = async (req, res) => {
     Service.findByIdAndUpdate(req.params.id, { status: false }, (err, __) => {
         if (err) {
             return res.status(400).json({ ok: false, message: err })
@@ -68,7 +68,7 @@ exports.deleteService = async (req, res) => {
 }
 
 
-exports.addReviewToProduct = async (req, res) => {
+export const addReviewToProduct = async (req, res) => {
     const errors = validationResult(req)
     if (errors.errors.length > 0) {
         return res.status(422).json({ ok: false, message: errors.errors })

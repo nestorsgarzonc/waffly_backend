@@ -65,7 +65,7 @@ const serviceSchema = new Schema({
     versionKey: false,
     timestamps: true
 });
-module.exports={
+module.exports = {
     Service: model('Service', serviceSchema),
     categories
 }

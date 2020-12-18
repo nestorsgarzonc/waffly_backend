@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 import { validationResult } from 'express-validator'
 import jwt from 'jsonwebtoken'
 
-exports.userLogin = (req, res) => {
+export const userLogin = (req, res) => {
     const errors = validationResult(req)
     if (errors.errors.length > 0) {
         return res.status(422).json({ ok: false, message: errors.errors })
@@ -22,7 +22,7 @@ exports.userLogin = (req, res) => {
     })
 }
 
-exports.userSignUp = async (req, res) => {
+export const userSignUp = async (req, res) => {
     const errors = validationResult(req)
     if (errors.errors.length > 0) {
         return res.status(422).json({ ok: false, message: errors.errors })
@@ -46,7 +46,7 @@ exports.userSignUp = async (req, res) => {
     })
 }
 
-exports.freelancerLogin = (req, res) => {
+export const freelancerLogin = (req, res) => {
     const errors = validationResult(req)
     if (errors.errors.length > 0) {
         return res.status(422).json({ ok: false, message: errors.errors })
@@ -64,7 +64,7 @@ exports.freelancerLogin = (req, res) => {
     })
 }
 
-exports.freelancerSignUp = async (req, res) => {
+export const freelancerSignUp = async (req, res) => {
     const errors = validationResult(req)
     if (errors.errors.length > 0) {
         return res.status(422).json({ ok: false, message: errors.errors })

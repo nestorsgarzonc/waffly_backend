@@ -1,7 +1,7 @@
 import Freelancer from '../models/Freelancer'
 import _ from 'underscore'
 
-exports.findAllFreelancers = async (__, res) => {
+export const findAllFreelancers = async (__, res) => {
     Freelancer
         .find()
         .populate('services')
@@ -13,7 +13,7 @@ exports.findAllFreelancers = async (__, res) => {
         })
 }
 
-exports.findFreelancerById = async (req, res) => {
+export const findFreelancerById = async (req, res) => {
     Freelancer
         .findById(req.params.id)
         .populate('services')
@@ -25,7 +25,7 @@ exports.findFreelancerById = async (req, res) => {
         })
 }
 
-exports.updateFreelancer = async (req, res) => {
+export const updateFreelancer = async (req, res) => {
     let body = _.pick(req.body, [
         'first_name',
         'last_name',
@@ -45,7 +45,7 @@ exports.updateFreelancer = async (req, res) => {
     })
 }
 
-exports.deleteFreelancer = async (req, res) => {
+export const deleteFreelancer = async (req, res) => {
     Freelancer.findByIdAndUpdate(req.params.id, { status: false }, (err, __) => {
         if (err) {
             return res.status(400).json({ ok: false, message: err })

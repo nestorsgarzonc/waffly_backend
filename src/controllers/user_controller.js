@@ -2,7 +2,7 @@ import User from '../models/User'
 import {Service} from '../models/Service'
 import _ from 'underscore'
 
-exports.findAllUsers = async (__, res) => {
+export const findAllUsers = async (__, res) => {
     User.find()
         .exec((err, users) => {
             if (err) {
@@ -12,7 +12,7 @@ exports.findAllUsers = async (__, res) => {
         });
 }
 
-exports.findUserById = async (req, res) => {
+export const findUserById = async (req, res) => {
     User.findById(req.params.id)
         .exec((err, user) => {
             if (err) {
@@ -23,7 +23,7 @@ exports.findUserById = async (req, res) => {
 }
 
 
-exports.addToServiceHistory = async (req, res) => {
+export const addToServiceHistory = async (req, res) => {
     let serviceObj = {
         freelancer_id: req.body.freelancer_id,
         service_id: req.body.service_id,
@@ -50,7 +50,7 @@ exports.addToServiceHistory = async (req, res) => {
     )
 }
 
-exports.updateUser = async (req, res) => {
+export const updateUser = async (req, res) => {
     let body = _.pick(req.body, ['first_name', 'last_name', 'email', 'img', 'status', 'location', 'gender', 'username'])
     User.findByIdAndUpdate(req.params.id, body, (err, __) => {
         if (err) {
@@ -60,7 +60,7 @@ exports.updateUser = async (req, res) => {
     })
 }
 
-exports.deleteUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
     User.findByIdAndUpdate(req.params.id, { status: false }, (err, __) => {
         if (err) {
             return res.status(404).json({ ok: false, message: err })
