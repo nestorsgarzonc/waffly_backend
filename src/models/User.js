@@ -47,10 +47,11 @@ const userSchema = new Schema({
         type: Boolean,
         default: true
     },
-    services_history: {
-        type: Array,
-        default: [],
-    },
+    services_history: [{
+        freelancer_id: { type: Schema.Types.ObjectId },
+        service_id: { type: Schema.Types.ObjectId },
+        date: { type: Date, default: new Date() }
+    }],
     type: {
         type: String,
         default: 'user'
