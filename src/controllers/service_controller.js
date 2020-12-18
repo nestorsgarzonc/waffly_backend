@@ -4,12 +4,17 @@ import { validationResult } from 'express-validator'
 
 exports.findAllServices = async (_, res) => {
     const services = await Service.find()
-    res.json(services)
+    res.json({ ok: true, services })
 }
 
 exports.findServiceById = async (req, res) => {
     const services = await Service.findById(req.params.id)
-    res.json(services)
+    res.json({ ok: true, services })
+}
+
+exports.findServicesByCategories = async (req, res) => {
+    const services = await Service.find({ category: req.body.category })
+    res.json({ ok: true, services })
 }
 
 exports.getCategories = async (_, res) => {

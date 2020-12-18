@@ -5,7 +5,9 @@ import * as token from '../middleware/auth_token'
 
 const router = Router();
 
-router.get('/categorie', serviceController.getCategories)
+router.get('/categories', serviceController.getCategories)
+
+router.get('/byCategory', serviceController.findServicesByCategories)
 
 router.get('/', token.checkToken, serviceController.findAllServices)
 
