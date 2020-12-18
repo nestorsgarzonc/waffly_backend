@@ -7,7 +7,9 @@ const router = Router();
 
 router.get('/categories', serviceController.getCategories)
 
-router.get('/byCategory', serviceController.findServicesByCategories)
+router.get('/byCategory/:category', serviceController.findServicesByCategories)
+
+router.get('/byName/:query', serviceController.findServicesByName)
 
 router.get('/', token.checkToken, serviceController.findAllServices)
 

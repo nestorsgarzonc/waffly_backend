@@ -13,7 +13,13 @@ exports.findServiceById = async (req, res) => {
 }
 
 exports.findServicesByCategories = async (req, res) => {
-    const services = await Service.find({ category: req.body.category })
+    const services = await Service.find({ category: req.params.category })
+    res.json({ ok: true, services })
+}
+
+exports.findServicesByName = async (req, res) => {
+    let regex = new RegExp(req.params.query, 'i')
+    const services = await Service.find({ title: regex })
     res.json({ ok: true, services })
 }
 
