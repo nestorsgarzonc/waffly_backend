@@ -1,5 +1,5 @@
 import Freelancer from '../models/Freelancer'
-import Service from '../models/Service'
+import { Service, categories } from '../models/Service'
 import { validationResult } from 'express-validator'
 
 exports.findAllServices = async (_, res) => {
@@ -10,6 +10,10 @@ exports.findAllServices = async (_, res) => {
 exports.findServiceById = async (req, res) => {
     const services = await Service.findById(req.params.id)
     res.json(services)
+}
+
+exports.getCategories = async (_, res) => {
+    res.json({ categories: categories.values })
 }
 
 exports.createService = async (req, res) => {

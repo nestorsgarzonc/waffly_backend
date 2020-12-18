@@ -5,6 +5,8 @@ import * as token from '../middleware/auth_token'
 
 const router = Router();
 
+router.get('/categorie', serviceController.getCategories)
+
 router.get('/', token.checkToken, serviceController.findAllServices)
 
 router.get('/:id', token.checkToken, serviceController.findServiceById)
@@ -22,5 +24,4 @@ router.post('/reviews/:id', [token.checkUserToken], serviceController.addReviewT
 
 router.delete('/:id', token.checkFreelancerToken, serviceController.deleteService)
 
-//TODO: add find by category
 export default router;

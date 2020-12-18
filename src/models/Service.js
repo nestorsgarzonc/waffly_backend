@@ -2,7 +2,17 @@ import { Schema, model } from 'mongoose'
 
 //TODO: define list of categories
 const categories = {
-    values: [],
+    values: [
+        'Belleza',
+        'Salud',
+        'Ocio',
+        'Mantenimiento',
+        'Tecnologia',
+        'Mascotas',
+        'Musica',
+        'Educacion',
+        'Alimentacion'
+    ],
     message: '{VALUES} no es una categoria valida'
 }
 
@@ -15,6 +25,7 @@ const serviceSchema = new Schema({
     category: {
         type: String,
         required: [true, 'La catogoria es necesaria'],
+        enum: categories,
     },
     freelancer_id: {
         type: Schema.Types.ObjectId,
@@ -54,5 +65,7 @@ const serviceSchema = new Schema({
     versionKey: false,
     timestamps: true
 });
-
-export default model('Service', serviceSchema)
+module.exports={
+    Service: model('Service', serviceSchema),
+    categories
+}

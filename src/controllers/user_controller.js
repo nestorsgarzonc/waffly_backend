@@ -1,5 +1,5 @@
 import User from '../models/User'
-import Service from '../models/Service'
+import {Service} from '../models/Service'
 import _ from 'underscore'
 
 exports.findAllUsers = async (__, res) => {
