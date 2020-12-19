@@ -14,12 +14,12 @@ var _mongooseUniqueValidator = _interopRequireDefault(require("mongoose-unique-v
 var userSchema = new _mongoose.Schema({
   first_name: {
     type: String,
-    required: true,
+    required: false,
     trim: true
   },
   last_name: {
     type: String,
-    required: true,
+    required: false,
     trim: true
   },
   username: {
