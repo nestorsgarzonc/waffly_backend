@@ -4,12 +4,12 @@ import uniqueValidator from 'mongoose-unique-validator'
 const userSchema = new Schema({
     first_name: {
         type: String,
-        required: true,
+        required: false,
         trim: true
     },
     last_name: {
         type: String,
-        required: true,
+        required: false,
         trim: true
     },
     username: {
