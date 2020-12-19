@@ -33,7 +33,7 @@ const userSchema = new Schema({
     document: {
         type: Number,
         unique: true,
-        required: [true, 'El documento es obligatorio'],
+        required: [false, 'El documento es obligatorio'],
     },
     gender: {
         type: String,
