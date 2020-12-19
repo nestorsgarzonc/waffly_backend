@@ -14,8 +14,7 @@ router.post(
 router.post(
     '/user/signup',
     [
-        body('email').isEmail().withMessage('Ingresa un email valido'),
-        body('img').isURL().withMessage('Ingresa un link valido'),
+        body('email').isEmail().withMessage('Ingresa un email valido')
     ],
     authController.userSignUp
 )
@@ -29,8 +28,7 @@ router.post(
 router.post(
     '/freelancer/signup',
     [
-        body('email').isEmail().withMessage('Ingresa un email valido'),
-        body('img').isURL().withMessage('Ingresa un link valido'),
+        body('email').isEmail().withMessage('Ingresa un email valido')
     ],
     authController.freelancerSignUp
 )
