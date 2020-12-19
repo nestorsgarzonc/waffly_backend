@@ -27,9 +27,6 @@ router.post(
 
 router.post(
     '/freelancer/signup',
-    [
-        body('email').isEmail().withMessage('Ingresa un email valido')
-    ],
     authController.freelancerSignUp
 )
 
