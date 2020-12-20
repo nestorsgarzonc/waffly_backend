@@ -3,6 +3,8 @@ import Freelancer from '../models/Freelancer'
 import bcrypt from 'bcrypt'
 import { validationResult } from 'express-validator'
 import jwt from 'jsonwebtoken'
+import _ from 'underscore'
+
 
 export const userLogin = (req, res) => {
     const errors = validationResult(req)
@@ -27,19 +29,24 @@ export const userSignUp = async (req, res) => {
     if (errors.errors.length > 0) {
         return res.status(422).json({ ok: false, message: errors.errors })
     }
-    let user = User({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        username: req.body.username,
-        email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, 10),
-        location: req.body.location,
-        document: req.body.document,
-        gender: req.body.gender,
-        img: req.body.img
-    })
+    const props = _.pick(req.body,
+        'first_name',
+        'last_name',
+        'username',
+        'email',
+        'password',
+        'location',
+        'document',
+        'gender',
+        'img',
+    )
+    props['password'] = bcrypt.hashSync(props['password'], 10)
+    console.log(props);
+    let user = User(props)
+    console.log(user);
     user.save((err, new_user) => {
         if (err) {
+            console.log(err);
             return res.status(400).json({ ok: false, message: err })
         }
         res.json({ ok: true, message: 'Usuario creado correctamente', ...new_user['_doc'] })
