@@ -1,4 +1,6 @@
 import { Schema, model } from 'mongoose'
+import uniqueValidator from 'mongoose-unique-validator'
+
 
 const userSchema = new Schema({
     first_name: {
@@ -65,5 +67,6 @@ userSchema.methods.toJSON = function () {
     return userObject
 }
 
+userSchema.plugin(uniqueValidator, { message: '{PATH} debe ser unico' })
 
 export default model('User', userSchema)
