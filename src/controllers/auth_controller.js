@@ -37,6 +37,7 @@ export const userSignUp = async (req, res) => {
         'gender',
         'img',
     )
+    console.log(props);
     props['password'] = bcrypt.hashSync(props['password'], 10)
     console.log(props);
     let user = User(props)
