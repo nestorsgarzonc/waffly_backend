@@ -13,9 +13,6 @@ router.post(
 
 router.post(
     '/user/signup',
-    [
-        body('email').isEmail().withMessage('Ingresa un email valido')
-    ],
     authController.userSignUp
 )
 

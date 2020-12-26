@@ -25,10 +25,6 @@ export const userLogin = (req, res) => {
 }
 
 export const userSignUp = async (req, res) => {
-    const errors = validationResult(req)
-    if (errors.errors.length > 0) {
-        return res.status(422).json({ ok: false, message: errors.errors })
-    }
     const props = _.pick(req.body,
         'first_name',
         'last_name',
