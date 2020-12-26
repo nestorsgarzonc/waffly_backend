@@ -37,6 +37,7 @@ export const userSignUp = async (req, res) => {
         'password',
         'location',
         'document',
+        'document_type',
         'gender',
         'img',
     )

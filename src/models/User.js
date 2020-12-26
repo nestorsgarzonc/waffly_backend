@@ -34,6 +34,9 @@ const userSchema = new Schema({
     document: {
         type: Number
     },
+    document_type: {
+        type: String
+    },
     gender: {
         type: String,
         default: 'no seleccionado',
