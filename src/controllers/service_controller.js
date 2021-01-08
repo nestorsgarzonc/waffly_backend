@@ -3,12 +3,12 @@ import { Service, categories } from '../models/Service'
 import { validationResult } from 'express-validator'
 
 export const findAllServices = async (_, res) => {
-    const services = await Service.find()
+    const services = await Service.find().populate('freelancer_id')
     res.json({ ok: true, services })
 }
 
 export const findServiceById = async (req, res) => {
-    const services = await Service.findById(req.params.id)
+    const services = await Service.findById(req.params.id).populate('freelancer_id')
     res.json({ ok: true, services })
 }
 
@@ -19,7 +19,7 @@ export const findServicesByCategories = async (req, res) => {
 
 export const findServicesByName = async (req, res) => {
     let regex = new RegExp(req.params.query, 'i')
-    const services = await Service.find({ title: regex })
+    const services = await Service.find({ title: regex }).populate('freelancer_id')
     res.json({ ok: true, services })
 }
 
