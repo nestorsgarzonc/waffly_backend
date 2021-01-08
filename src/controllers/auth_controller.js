@@ -19,6 +19,7 @@ export const userLogin = (req, res) => {
         } else if (!bcrypt.compareSync(req.body.password, user.password)) {
             return res.status(404).json({ ok: false, message: 'Usuario o contraseña incorrecta', err })
         }
+        //TODO: change user propierties in jwt
         let token = jwt.sign({ user }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKEN })
         res.json({ ok: true, user, token })
     })

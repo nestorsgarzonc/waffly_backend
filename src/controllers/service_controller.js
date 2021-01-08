@@ -13,7 +13,7 @@ export const findServiceById = async (req, res) => {
 }
 
 export const findServicesByCategories = async (req, res) => {
-    const services = await Service.find({ category: req.params.category })
+    const services = await Service.find({ category: req.params.category }).populate('freelancer_id')
     res.json({ ok: true, services })
 }
 

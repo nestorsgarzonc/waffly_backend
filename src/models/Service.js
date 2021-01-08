@@ -29,6 +29,7 @@ const serviceSchema = new Schema({
     },
     freelancer_id: {
         type: Schema.Types.ObjectId,
+        ref: 'Freelancer',
         required: [true, 'El freelancer es obligatorio']
     },
     is_presencial: {

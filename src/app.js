@@ -19,5 +19,5 @@ app.use('/api/service', ServiceRoutes)
 app.use('/api/user', UserRoutes)
 app.use('/api/freelancer', FreelancerRoutes)
 app.use('/api/auth', AuthRoutes)
-
+//TODO: get categories
 export default app
