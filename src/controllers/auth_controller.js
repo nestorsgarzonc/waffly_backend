@@ -11,7 +11,7 @@ export const userLogin = (req, res) => {
     if (errors.errors.length > 0) {
         return res.status(422).json({ ok: false, message: errors.errors })
     }
-    User.findOne({ email: req.body.email }, (err, user) => {
+    User.findOne({ email: req.body.email, status: true }, (err, user) => {
         if (err) {
             return res.status(404).json({ ok: false, message: 'Error ', err })
         } else if (!user) {
