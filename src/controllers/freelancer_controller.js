@@ -9,7 +9,7 @@ export const findAllFreelancers = async (__, res) => {
             if (err) {
                 return res.status(400).json({ ok: false, message: err })
             }
-            res.json({ ok: true, ...freelancers })
+            res.json({ ok: true, freelancers: freelancers })
         })
 }
 
