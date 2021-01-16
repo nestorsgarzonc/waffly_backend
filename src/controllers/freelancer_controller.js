@@ -21,7 +21,7 @@ export const findFreelancerById = async (req, res) => {
             if (err) {
                 return res.status(400).json({ ok: false, message: err })
             }
-            res.json({ ok: true, ...freelancer['_doc'] })
+            res.json({ ok: true, freelancer: freelancer })
         })
 }
 
