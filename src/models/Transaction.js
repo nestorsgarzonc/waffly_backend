@@ -15,11 +15,6 @@ const serviceSchema = new Schema({
         ref: 'Service',
         required: [true, 'El id del servicio es obligatorio']
     },
-    freelancer_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Freelancer',
-        required: [true, 'El id del freelancer es obligatorio']
-    },
     user_id: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -27,9 +22,9 @@ const serviceSchema = new Schema({
     },
     transaction_status: {
         type: String,
-        required: [true, 'El estado de la transaccion es necesaria'],
+        default: 'Pendiente',
         enum: transactionStatus,
     }
 }, { versionKey: false, timestamps: true });
 
-module.exports = { Service: model('Transaction', serviceSchema) }
+export default model('Transaction', serviceSchema)
