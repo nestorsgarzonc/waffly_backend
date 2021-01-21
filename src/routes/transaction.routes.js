@@ -8,9 +8,9 @@ router.get('/', [token.checkUserToken], transactionController.getTransactions)
 
 router.get('/:id', [token.checkUserToken], transactionController.getTransactionsByID)
 
-router.get('/:user_id', [token.checkUserToken], transactionController.getTransactionsByUserID)
+router.get('/byUser/:user_id', [token.checkUserToken], transactionController.getTransactionsByUserID)
 
-router.get('/:freelancer_id', [token.checkUserToken], transactionController.getTransactionsByFreelancerID)
+router.get('/byFreelancer/:freelancer_id', [token.checkUserToken], transactionController.getTransactionsByFreelancerID)
 
 router.post('/', [token.checkUserToken], transactionController.addNewTransaction)
 

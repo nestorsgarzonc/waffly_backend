@@ -3,7 +3,7 @@ import Transaction from '../models/Transaction'
 
 const getTransactions = async (_, res = response) => {
     try {
-        const transactions = await Transaction.find()
+        const transactions = await Transaction.find().populate('service_id')
         res.json({ ok: true, transactions })
     } catch (error) {
         console.log(error);
@@ -16,7 +16,7 @@ const getTransactionsByID = async (req, res = response) => {
         res.status(400).json({ ok: false, message: 'El id es necesario' })
     }
     try {
-        const transaction = await Transaction.findById(req.params.id).populate('Service')
+        const transaction = await Transaction.findById(req.params.id).populate('service_id')
         res.json({ ok: true, transaction })
     } catch (error) {
         console.log(error);
@@ -25,11 +25,11 @@ const getTransactionsByID = async (req, res = response) => {
 }
 const getTransactionsByUserID = async (req, res = response) => {
     const user_id = req.params.user_id
-    if (!id) {
+    if (!user_id) {
         res.status(400).json({ ok: false, message: 'El user id es obligatorio' })
     }
     try {
-        const transactions = await Transaction.find({ user_id }).populate('Service')
+        const transactions = await Transaction.find({ user_id }).populate('service_id')
         res.json({ ok: true, transactions })
     } catch (error) {
         console.log(error);
@@ -42,7 +42,8 @@ const getTransactionsByFreelancerID = async (req, res = response) => {
         res.status(400).json({ ok: false, message: 'El freelancer_id es obligatorio' })
     }
     try {
-        const transactions = await Transaction.find({ 'service_id.freelancer_id': freelancer_id })
+        //TODO: find freelancer id
+        const transactions = await Transaction.find({ service_id: { freelancer_id: freelancer_id } })
         res.json({ ok: true, transactions })
     } catch (error) {
         console.log(error);
@@ -51,8 +52,6 @@ const getTransactionsByFreelancerID = async (req, res = response) => {
 }
 const addNewTransaction = async (req, res = response) => {
     const { service_id, user_id, transaction_status } = req.body
-    //TODO: check correct params
-    console.log(service_id, user_id, transaction_status);
     try {
         const transaction = Transaction({ service_id, user_id, transaction_status })
         await transaction.save()
