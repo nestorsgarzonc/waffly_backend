@@ -1,5 +1,5 @@
-import Freelancer from '../models/Freelancer'
-import _ from 'underscore'
+import _ from 'underscore';
+import Freelancer from '../models/Freelancer';
 
 export const findAllFreelancers = async (__, res) => {
     Freelancer
@@ -7,11 +7,11 @@ export const findAllFreelancers = async (__, res) => {
         .populate('services')
         .exec((err, freelancers) => {
             if (err) {
-                return res.status(400).json({ ok: false, message: err })
+                return res.status(400).json({ ok: false, message: err });
             }
-            res.json({ ok: true, freelancers: freelancers })
-        })
-}
+            res.json({ ok: true, freelancers });
+        });
+};
 
 export const findFreelancerById = async (req, res) => {
     Freelancer
@@ -19,14 +19,14 @@ export const findFreelancerById = async (req, res) => {
         .populate('services')
         .exec((err, freelancer) => {
             if (err) {
-                return res.status(400).json({ ok: false, message: err })
+                return res.status(400).json({ ok: false, message: err });
             }
-            res.json({ ok: true, freelancer: freelancer })
-        })
-}
+            res.json({ ok: true, freelancer });
+        });
+};
 
 export const updateFreelancer = async (req, res) => {
-    let body = _.pick(req.body, [
+    const body = _.pick(req.body, [
         'first_name',
         'last_name',
         'username',
@@ -36,20 +36,20 @@ export const updateFreelancer = async (req, res) => {
         'gender',
         'email',
         'img',
-    ])
+    ]);
     Freelancer.findByIdAndUpdate(req.params.id, body, (err, __) => {
         if (err) {
-            return res.status(400).json({ ok: false, err })
+            return res.status(400).json({ ok: false, err });
         }
-        res.json({ ok: true, message: 'Freelancer actualizado correctamente' })
-    })
-}
+        res.json({ ok: true, message: 'Freelancer actualizado correctamente' });
+    });
+};
 
 export const deleteFreelancer = async (req, res) => {
     Freelancer.findByIdAndUpdate(req.params.id, { status: false }, (err, __) => {
         if (err) {
-            return res.status(400).json({ ok: false, message: err })
+            return res.status(400).json({ ok: false, message: err });
         }
-        res.json({ ok: true, message: 'Freelancer eliminado exitosamente' })
-    })
-}
+        res.json({ ok: true, message: 'Freelancer eliminado exitosamente' });
+    });
+};

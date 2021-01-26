@@ -1,19 +1,19 @@
-import { Router } from 'express'
-import { body } from 'express-validator'
-import * as serviceController from '../controllers/service_controller'
-import * as token from '../middleware/auth_token'
+import { Router } from 'express';
+import { body } from 'express-validator';
+import * as serviceController from '../controllers/service_controller';
+import * as token from '../middleware/auth_token';
 
 const router = Router();
 
-router.get('/categories', serviceController.getCategories)
+router.get('/categories', serviceController.getCategories);
 
-router.get('/byCategory/:category', serviceController.findServicesByCategories)
+router.get('/byCategory/:category', serviceController.findServicesByCategories);
 
-router.get('/byName/:query', serviceController.findServicesByName)
+router.get('/byName/:query', serviceController.findServicesByName);
 
-router.get('/', token.checkToken, serviceController.findAllServices)
+router.get('/', token.checkToken, serviceController.findAllServices);
 
-router.get('/:id', token.checkToken, serviceController.findServiceById)
+router.get('/:id', token.checkToken, serviceController.findServiceById);
 
 router.post(
     '/addService/:id',
@@ -21,11 +21,11 @@ router.post(
         token.checkFreelancerToken,
         body('img').isURL().withMessage('Ingresa un link valido'),
     ],
-    serviceController.createService
-)
+    serviceController.createService,
+);
 
-router.post('/reviews/:id', [token.checkUserToken], serviceController.addReviewToProduct)
+router.post('/reviews/:id', [token.checkUserToken], serviceController.addReviewToProduct);
 
-router.delete('/:id', token.checkFreelancerToken, serviceController.deleteService)
+router.delete('/:id', token.checkFreelancerToken, serviceController.deleteService);
 
 export default router;

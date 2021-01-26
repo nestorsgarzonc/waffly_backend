@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model } from 'mongoose';
 
-//TODO: define list of categories
+// TODO: define list of categories
 const categories = {
     values: [
         'Belleza',
@@ -11,16 +11,16 @@ const categories = {
         'Mascotas',
         'Musica',
         'Educacion',
-        'Alimentacion'
+        'Alimentacion',
     ],
-    message: '{VALUES} no es una categoria valida'
-}
+    message: '{VALUES} no es una categoria valida',
+};
 
 const serviceSchema = new Schema({
     title: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     category: {
         type: String,
@@ -30,43 +30,44 @@ const serviceSchema = new Schema({
     freelancer_id: {
         type: Schema.Types.ObjectId,
         ref: 'Freelancer',
-        required: [true, 'El freelancer es obligatorio']
+        required: [true, 'El freelancer es obligatorio'],
     },
     is_presencial: {
         type: Boolean,
-        default: false
+        default: false,
     },
     description: {
         type: String,
-        trim: true
+        trim: true,
     },
     reviews: [{
         stars: { type: Number },
         review: { type: String },
-        user_id: { type: Schema.Types.ObjectId }
+        user_id: { type: Schema.Types.ObjectId },
     }],
     num_purchases: {
         type: Number,
-        default: 0
+        default: 0,
     },
     price: {
         type: Number,
-        required: true
+        required: true,
     },
     img: {
         type: String,
-        required: true
+        required: true,
     },
     status: {
         type: Boolean,
-        default: true
+        default: true,
     },
 
 }, {
     versionKey: false,
-    timestamps: true
+    timestamps: true,
 });
+
 module.exports = {
     Service: model('Service', serviceSchema),
-    categories
-}
+    categories,
+};

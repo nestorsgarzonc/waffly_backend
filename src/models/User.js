@@ -1,41 +1,40 @@
-import { Schema, model } from 'mongoose'
-import uniqueValidator from 'mongoose-unique-validator'
-
+import { Schema, model } from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator';
 
 const userSchema = new Schema({
     first_name: {
         type: String,
         required: false,
-        trim: true
+        trim: true,
     },
     last_name: {
         type: String,
         required: false,
-        trim: true
+        trim: true,
     },
     username: {
         type: String,
         unique: true,
-        required: [true, 'El nombre de usuario es necesario']
+        required: [true, 'El nombre de usuario es necesario'],
     },
     email: {
         type: String,
         unique: true,
-        required: [true, 'El correo es necesario']
+        required: [true, 'El correo es necesario'],
     },
     password: {
         type: String,
-        required: [true, 'La contraseña es requerida']
+        required: [true, 'La contraseña es requerida'],
     },
     location: {
         type: String,
         default: '',
     },
     document: {
-        type: Number
+        type: Number,
     },
     document_type: {
-        type: String
+        type: String,
     },
     gender: {
         type: String,
@@ -43,33 +42,33 @@ const userSchema = new Schema({
     },
     img: {
         type: String,
-        required: false
+        required: false,
     },
     status: {
         type: Boolean,
-        default: true
+        default: true,
     },
     services_history: [{
         freelancer_id: { type: Schema.Types.ObjectId },
         service_id: { type: Schema.Types.ObjectId },
-        date: { type: Date, default: new Date() }
+        date: { type: Date, default: new Date() },
     }],
     type: {
         type: String,
-        default: 'user'
-    }
+        default: 'user',
+    },
 }, {
     versionKey: false,
-    timestamps: true
+    timestamps: true,
 });
 
 userSchema.methods.toJSON = function () {
-    let user = this;
-    let userObject = user.toObject();
+    const user = this;
+    const userObject = user.toObject();
     delete userObject.password;
-    return userObject
-}
+    return userObject;
+};
 
-userSchema.plugin(uniqueValidator, { message: '{PATH} debe ser unico' })
+userSchema.plugin(uniqueValidator, { message: '{PATH} debe ser unico' });
 
-export default model('User', userSchema)
+export default model('User', userSchema);

@@ -1,16 +1,16 @@
-import { Schema, model } from 'mongoose'
-import uniqueValidator from 'mongoose-unique-validator'
+import { Schema, model } from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator';
 
 const freelancerSchema = new Schema({
     first_name: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     last_name: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     username: {
         type: String,
@@ -21,25 +21,25 @@ const freelancerSchema = new Schema({
     location: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     document: {
         type: Number,
         unique: true,
-        required: [true, "El documento es requerido"]
+        required: [true, 'El documento es requerido'],
     },
     services: [{
         type: Schema.Types.ObjectId,
-        ref: 'Service'
+        ref: 'Service',
     }],
     gender: {
         type: String,
-        default: ''
+        default: '',
     },
     email: {
         type: String,
         unique: true,
-        required: true
+        required: true,
     },
     img: {
         type: String,
@@ -51,24 +51,24 @@ const freelancerSchema = new Schema({
     },
     status: {
         type: Boolean,
-        default: true
+        default: true,
     },
     type: {
         type: String,
-        default: 'freelancer'
-    }
+        default: 'freelancer',
+    },
 }, {
     versionKey: false,
-    timestamps: true
+    timestamps: true,
 });
 
 freelancerSchema.methods.toJSON = function () {
-    let freelancer = this;
-    let freelancerObject = freelancer.toObject();
+    const freelancer = this;
+    const freelancerObject = freelancer.toObject();
     delete freelancerObject.password;
-    return freelancerObject
-}
+    return freelancerObject;
+};
 
-freelancerSchema.plugin(uniqueValidator, { message: '{PATH} debe ser unico' })
+freelancerSchema.plugin(uniqueValidator, { message: '{PATH} debe ser unico' });
 
-export default model('Freelancer', freelancerSchema)
+export default model('Freelancer', freelancerSchema);

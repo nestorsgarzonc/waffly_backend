@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
-import config from './config'
+import mongoose from 'mongoose';
+import config from './config';
 
 (async () => {
     const db = await mongoose.connect(
@@ -8,8 +8,8 @@ import config from './config'
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useFindAndModify: false,
-            useCreateIndex: true
-        }
-    )
+            useCreateIndex: true,
+        },
+    );
     console.log(`Database is connected to: ${db.connection.name}`);
-})()
+})();
