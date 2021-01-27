@@ -2,17 +2,19 @@ import jwt from 'jsonwebtoken';
 
 export const checkToken = (req, res, next) => {
     const token = req.get('token');
+    // eslint-disable-next-line no-unused-vars
     jwt.verify(token, process.env.SEED, (err, _) => {
         if (err) {
             return res.status(400).json({ ok: false, message: 'Token no valido', err });
         }
-        next();
+        return next();
     });
 };
 
 export const checkUserToken = (req, res, next) => {
     const token = req.get('token');
     jwt.verify(token, process.env.SEED, (err, decoded) => {
+        console.log(decoded);
         if (err) {
             return res.status(400).json({ ok: false, message: 'Token no valido', err });
         }
@@ -20,7 +22,7 @@ export const checkUserToken = (req, res, next) => {
             return res.status(400).json({ ok: false, message: 'Permisos no validos', err });
         }
         req.usuario = decoded.user;
-        next();
+        return next();
     });
 };
 
@@ -34,6 +36,6 @@ export const checkFreelancerToken = (req, res, next) => {
             return res.status(400).json({ ok: false, message: 'Permisos no validos', err });
         }
         req.freelancer = decoded.freelancer;
-        next();
+        return next();
     });
 };

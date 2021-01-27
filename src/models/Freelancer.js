@@ -62,6 +62,7 @@ const freelancerSchema = new Schema({
     timestamps: true,
 });
 
+// eslint-disable-next-line func-names
 freelancerSchema.methods.toJSON = function () {
     const freelancer = this;
     const freelancerObject = freelancer.toObject();

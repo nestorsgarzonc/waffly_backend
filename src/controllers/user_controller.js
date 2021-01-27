@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import _ from 'underscore';
 import User from '../models/User';
+// eslint-disable-next-line import/named
 import { Service } from '../models/Service';
 
 export const findAllUsers = async (__, res) => {
@@ -8,18 +10,17 @@ export const findAllUsers = async (__, res) => {
             if (err) {
                 return res.status(400).json({ ok: false, message: err });
             }
-            res.json({ ok: true, ...users });
+            return res.json({ ok: true, ...users });
         });
 };
 
 export const findUserById = async (req, res) => {
-    User.findById(req.params.id)
-        .exec((err, user) => {
-            if (err) {
-                return res.status(400).json({ ok: false, message: err });
-            }
-            res.json({ ok: true, ...user._doc });
-        });
+    try {
+        const user = await User.findById(req.params.id);
+        return res.json({ ok: true, user });
+    } catch (error) {
+        return res.status(400).json({ ok: false, message: error });
+    }
 };
 
 export const addToServiceHistory = async (req, res) => {
@@ -35,14 +36,14 @@ export const addToServiceHistory = async (req, res) => {
             if (err) {
                 return res.status(400).json({ ok: false, message: err });
             }
-            Service.findByIdAndUpdate(
+            return Service.findByIdAndUpdate(
                 serviceObj.service_id,
                 { $inc: { num_purchases: 1 } },
-                (err_2, ___) => {
-                    if (err_2) {
-                        return res.status(400).json({ ok: false, message: err_2 });
+                (err2, ___) => {
+                    if (err2) {
+                        return res.status(400).json({ ok: false, message: err2 });
                     }
-                    res.json({ ok: true, message: 'Agregado correctamente' });
+                    return res.json({ ok: true, message: 'Agregado correctamente' });
                 },
             );
         },
@@ -55,7 +56,7 @@ export const updateUser = async (req, res) => {
         if (err) {
             return res.status(400).json({ ok: false, message: err });
         }
-        res.json({ ok: true, message: 'Usuario actualizado correctamente' });
+        return res.json({ ok: true, message: 'Usuario actualizado correctamente' });
     });
 };
 
@@ -64,6 +65,6 @@ export const deleteUser = async (req, res) => {
         if (err) {
             return res.status(404).json({ ok: false, message: err });
         }
-        res.json({ ok: true, message: 'Usuario eliminado correctamente' });
+        return res.json({ ok: true, message: 'Usuario eliminado correctamente' });
     });
 };

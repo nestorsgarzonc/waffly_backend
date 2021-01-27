@@ -62,6 +62,7 @@ const userSchema = new Schema({
     timestamps: true,
 });
 
+// eslint-disable-next-line func-names
 userSchema.methods.toJSON = function () {
     const user = this;
     const userObject = user.toObject();

@@ -20,6 +20,11 @@ const serviceSchema = new Schema({
         ref: 'User',
         required: [true, 'El id del usuario es obligatorio'],
     },
+    freelancer_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'Freelancer',
+        required: [true, 'El id del freelancer es obligatorio'],
+    },
     transaction_status: {
         type: String,
         default: 'Pendiente',

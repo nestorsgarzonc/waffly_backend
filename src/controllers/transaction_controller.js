@@ -1,4 +1,5 @@
 import { response } from 'express';
+import { Service } from '../models/Service';
 import Transaction from '../models/Transaction';
 
 const getTransactions = async (_, res = response) => {
@@ -42,8 +43,7 @@ const getTransactionsByFreelancerID = async (req, res = response) => {
         res.status(400).json({ ok: false, message: 'El freelancer_id es obligatorio' });
     }
     try {
-        // TODO: find freelancer id
-        const transactions = await Transaction.find({ service_id: { freelancer_id } });
+        const transactions = await Transaction.find({ freelancer_id }).populate('service_id user_id');
         res.json({ ok: true, transactions });
     } catch (error) {
         console.log(error);
@@ -53,7 +53,8 @@ const getTransactionsByFreelancerID = async (req, res = response) => {
 const addNewTransaction = async (req, res = response) => {
     const { service_id, user_id, transaction_status } = req.body;
     try {
-        const transaction = Transaction({ service_id, user_id, transaction_status });
+        const { freelancer_id } = await Service.findById(service_id)
+        const transaction = Transaction({ service_id, user_id, transaction_status, freelancer_id });
         await transaction.save();
         res.json({ ok: true, transaction });
     } catch (error) {
