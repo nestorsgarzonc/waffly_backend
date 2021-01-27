@@ -10,7 +10,7 @@ exports.checkFreelancerToken = exports.checkUserToken = exports.checkToken = voi
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var checkToken = function checkToken(req, res, next) {
-  var token = req.get('token');
+  var token = req.get('token'); // eslint-disable-next-line no-unused-vars
 
   _jsonwebtoken["default"].verify(token, process.env.SEED, function (err, _) {
     if (err) {
@@ -21,7 +21,7 @@ var checkToken = function checkToken(req, res, next) {
       });
     }
 
-    next();
+    return next();
   });
 };
 
@@ -31,6 +31,8 @@ var checkUserToken = function checkUserToken(req, res, next) {
   var token = req.get('token');
 
   _jsonwebtoken["default"].verify(token, process.env.SEED, function (err, decoded) {
+    console.log(decoded);
+
     if (err) {
       return res.status(400).json({
         ok: false,
@@ -48,7 +50,7 @@ var checkUserToken = function checkUserToken(req, res, next) {
     }
 
     req.usuario = decoded.user;
-    next();
+    return next();
   });
 };
 
@@ -75,7 +77,7 @@ var checkFreelancerToken = function checkFreelancerToken(req, res, next) {
     }
 
     req.freelancer = decoded.freelancer;
-    next();
+    return next();
   });
 };
 

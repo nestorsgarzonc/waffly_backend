@@ -13,15 +13,17 @@ var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/de
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
-var _User = _interopRequireDefault(require("../models/User"));
-
-var _Freelancer = _interopRequireDefault(require("../models/Freelancer"));
-
 var _bcrypt = _interopRequireDefault(require("bcrypt"));
 
 var _expressValidator = require("express-validator");
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
+
+var _underscore = _interopRequireDefault(require("underscore"));
+
+var _Freelancer = _interopRequireDefault(require("../models/Freelancer"));
+
+var _User = _interopRequireDefault(require("../models/User"));
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -38,7 +40,8 @@ var userLogin = function userLogin(req, res) {
   }
 
   _User["default"].findOne({
-    email: req.body.email
+    email: req.body.email,
+    status: true
   }, function (err, user) {
     if (err) {
       return res.status(404).json({
@@ -46,19 +49,24 @@ var userLogin = function userLogin(req, res) {
         message: 'Error ',
         err: err
       });
-    } else if (!user) {
+    }
+
+    if (!user) {
       return res.status(404).json({
         ok: false,
         message: 'Usuario no encontrado',
         err: err
       });
-    } else if (!_bcrypt["default"].compareSync(req.body.password, user.password)) {
+    }
+
+    if (!_bcrypt["default"].compareSync(req.body.password, user.password)) {
       return res.status(404).json({
         ok: false,
         message: 'Usuario o contraseña incorrecta',
         err: err
       });
-    }
+    } // TODO: change user propierties in jwt
+
 
     var token = _jsonwebtoken["default"].sign({
       user: user
@@ -78,37 +86,20 @@ exports.userLogin = userLogin;
 
 var userSignUp = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-    var errors, user;
+    var props, user;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            errors = (0, _expressValidator.validationResult)(req);
-
-            if (!(errors.errors.length > 0)) {
-              _context.next = 3;
-              break;
-            }
-
-            return _context.abrupt("return", res.status(422).json({
-              ok: false,
-              message: errors.errors
-            }));
-
-          case 3:
-            user = (0, _User["default"])({
-              first_name: req.body.first_name,
-              last_name: req.body.last_name,
-              username: req.body.username,
-              email: req.body.email,
-              password: _bcrypt["default"].hashSync(req.body.password, 10),
-              location: req.body.location,
-              document: req.body.document,
-              gender: req.body.gender,
-              img: req.body.img
-            });
+            props = _underscore["default"].pick(req.body, 'first_name', 'last_name', 'username', 'email', 'password', 'location', 'document', 'document_type', 'gender', 'img');
+            console.log(props);
+            props.password = _bcrypt["default"].hashSync(props.password, 10);
+            console.log(props);
+            user = (0, _User["default"])(props);
+            console.log(user);
             user.save(function (err, new_user) {
               if (err) {
+                console.log(err);
                 return res.status(400).json({
                   ok: false,
                   message: err
@@ -118,10 +109,10 @@ var userSignUp = /*#__PURE__*/function () {
               res.json(_objectSpread({
                 ok: true,
                 message: 'Usuario creado correctamente'
-              }, new_user['_doc']));
+              }, new_user._doc));
             });
 
-          case 5:
+          case 7:
           case "end":
             return _context.stop();
         }
@@ -155,13 +146,17 @@ var freelancerLogin = function freelancerLogin(req, res) {
         message: 'Error ',
         err: err
       });
-    } else if (!freelancer) {
+    }
+
+    if (!freelancer) {
       return res.status(404).json({
         ok: false,
         message: 'Freelancer no encontrado',
         err: err
       });
-    } else if (!_bcrypt["default"].compareSync(req.body.password, freelancer.password)) {
+    }
+
+    if (!_bcrypt["default"].compareSync(req.body.password, freelancer.password)) {
       return res.status(404).json({
         ok: false,
         message: 'Freelancer o contraseña incorrecta',
@@ -227,7 +222,7 @@ var freelancerSignUp = /*#__PURE__*/function () {
               res.json(_objectSpread({
                 ok: true,
                 message: 'Freelancer creado correctamente'
-              }, new_freelancer['_doc']));
+              }, new_freelancer._doc));
             });
 
           case 5:

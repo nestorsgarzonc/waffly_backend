@@ -41,9 +41,10 @@ var userSchema = new _mongoose.Schema({
     "default": ''
   },
   document: {
-    type: Number,
-    unique: true,
-    required: [false, 'El documento es obligatorio']
+    type: Number
+  },
+  document_type: {
+    type: String
   },
   gender: {
     type: String,
@@ -76,7 +77,7 @@ var userSchema = new _mongoose.Schema({
 }, {
   versionKey: false,
   timestamps: true
-});
+}); // eslint-disable-next-line func-names
 
 userSchema.methods.toJSON = function () {
   var user = this;

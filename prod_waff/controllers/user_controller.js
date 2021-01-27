@@ -13,11 +13,11 @@ var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/de
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
+var _underscore = _interopRequireDefault(require("underscore"));
+
 var _User = _interopRequireDefault(require("../models/User"));
 
 var _Service = require("../models/Service");
-
-var _underscore = _interopRequireDefault(require("underscore"));
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -37,7 +37,7 @@ var findAllUsers = /*#__PURE__*/function () {
                 });
               }
 
-              res.json(_objectSpread({
+              return res.json(_objectSpread({
                 ok: true
               }, users));
             });
@@ -59,29 +59,36 @@ exports.findAllUsers = findAllUsers;
 
 var findUserById = /*#__PURE__*/function () {
   var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res) {
+    var user;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _User["default"].findById(req.params.id).exec(function (err, user) {
-              if (err) {
-                return res.status(400).json({
-                  ok: false,
-                  message: err
-                });
-              }
+            _context2.prev = 0;
+            _context2.next = 3;
+            return _User["default"].findById(req.params.id);
 
-              res.json(_objectSpread({
-                ok: true
-              }, user['_doc']));
-            });
+          case 3:
+            user = _context2.sent;
+            return _context2.abrupt("return", res.json({
+              ok: true,
+              user: user
+            }));
 
-          case 1:
+          case 7:
+            _context2.prev = 7;
+            _context2.t0 = _context2["catch"](0);
+            return _context2.abrupt("return", res.status(400).json({
+              ok: false,
+              message: _context2.t0
+            }));
+
+          case 10:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2);
+    }, _callee2, null, [[0, 7]]);
   }));
 
   return function findUserById(_x3, _x4) {
@@ -116,19 +123,19 @@ var addToServiceHistory = /*#__PURE__*/function () {
                 });
               }
 
-              _Service.Service.findByIdAndUpdate(serviceObj.service_id, {
+              return _Service.Service.findByIdAndUpdate(serviceObj.service_id, {
                 $inc: {
                   num_purchases: 1
                 }
-              }, function (err_2, ___) {
-                if (err_2) {
+              }, function (err2, ___) {
+                if (err2) {
                   return res.status(400).json({
                     ok: false,
-                    message: err_2
+                    message: err2
                   });
                 }
 
-                res.json({
+                return res.json({
                   ok: true,
                   message: 'Agregado correctamente'
                 });
@@ -167,7 +174,7 @@ var updateUser = /*#__PURE__*/function () {
                 });
               }
 
-              res.json({
+              return res.json({
                 ok: true,
                 message: 'Usuario actualizado correctamente'
               });
@@ -204,7 +211,7 @@ var deleteUser = /*#__PURE__*/function () {
                 });
               }
 
-              res.json({
+              return res.json({
                 ok: true,
                 message: 'Usuario eliminado correctamente'
               });

@@ -11,11 +11,11 @@ var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"))
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
+var _expressValidator = require("express-validator");
+
 var _Freelancer = _interopRequireDefault(require("../models/Freelancer"));
 
 var _Service = require("../models/Service");
-
-var _expressValidator = require("express-validator");
 
 var findAllServices = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(_, res) {
@@ -25,7 +25,7 @@ var findAllServices = /*#__PURE__*/function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return _Service.Service.find();
+            return _Service.Service.find().populate('freelancer_id');
 
           case 2:
             services = _context.sent;
@@ -57,7 +57,7 @@ var findServiceById = /*#__PURE__*/function () {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return _Service.Service.findById(req.params.id);
+            return _Service.Service.findById(req.params.id).populate('freelancer_id');
 
           case 2:
             services = _context2.sent;
@@ -91,7 +91,7 @@ var findServicesByCategories = /*#__PURE__*/function () {
             _context3.next = 2;
             return _Service.Service.find({
               category: req.params.category
-            });
+            }).populate('freelancer_id');
 
           case 2:
             services = _context3.sent;
@@ -126,7 +126,7 @@ var findServicesByName = /*#__PURE__*/function () {
             _context4.next = 3;
             return _Service.Service.find({
               title: regex
-            });
+            }).populate('freelancer_id');
 
           case 3:
             services = _context4.sent;

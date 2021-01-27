@@ -36,7 +36,7 @@ var freelancerSchema = new _mongoose.Schema({
   document: {
     type: Number,
     unique: true,
-    required: [true, "El documento es requerido"]
+    required: [true, 'El documento es requerido']
   },
   services: [{
     type: _mongoose.Schema.Types.ObjectId,
@@ -70,7 +70,7 @@ var freelancerSchema = new _mongoose.Schema({
 }, {
   versionKey: false,
   timestamps: true
-});
+}); // eslint-disable-next-line func-names
 
 freelancerSchema.methods.toJSON = function () {
   var freelancer = this;

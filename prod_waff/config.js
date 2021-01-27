@@ -7,25 +7,25 @@ exports["default"] = void 0;
 
 var _dotenv = require("dotenv");
 
-(0, _dotenv.config)(); //======================
-//Port
-//======================
+(0, _dotenv.config)(); //= =====================
+// Port
+//= =====================
 
-process.env.PORT = process.env.PORT || 3000; //======================
-//Entorno
-//======================
+process.env.PORT = process.env.PORT || 3000; //= =====================
+// Entorno
+//= =====================
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'dev'; //======================
-//Vencimiento token
-//======================
+process.env.NODE_ENV = process.env.NODE_ENV || 'dev'; //= =====================
+// Vencimiento token
+//= =====================
 
-process.env.CADUCIDAD_TOKEN = '1000h'; //======================
-//Seed autenticacion
-//======================
+process.env.CADUCIDAD_TOKEN = '1000h'; //= =====================
+// Seed autenticacion
+//= =====================
 
-process.env.SEED = process.env.SEED || 'dev_secret_seed'; //======================
-//DB
-//======================
+process.env.SEED = process.env.SEED || 'dev_secret_seed'; //= =====================
+// DB
+//= =====================
 
 var urlDB;
 

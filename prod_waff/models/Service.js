@@ -2,7 +2,7 @@
 
 var _mongoose = require("mongoose");
 
-//TODO: define list of categories
+// TODO: define list of categories
 var categories = {
   values: ['Belleza', 'Salud', 'Ocio', 'Mantenimiento', 'Tecnologia', 'Mascotas', 'Musica', 'Educacion', 'Alimentacion'],
   message: '{VALUES} no es una categoria valida'
@@ -20,6 +20,7 @@ var serviceSchema = new _mongoose.Schema({
   },
   freelancer_id: {
     type: _mongoose.Schema.Types.ObjectId,
+    ref: 'Freelancer',
     required: [true, 'El freelancer es obligatorio']
   },
   is_presencial: {
