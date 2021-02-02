@@ -208,6 +208,7 @@ var freelancerSignUp = /*#__PURE__*/function () {
               document: req.body.document,
               gender: req.body.gender,
               email: req.body.email,
+              phone: req.body.phone,
               img: req.body.img,
               password: _bcrypt["default"].hashSync(req.body.password, 10)
             });

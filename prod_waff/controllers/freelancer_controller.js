@@ -92,7 +92,7 @@ var updateFreelancer = /*#__PURE__*/function () {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            body = _underscore["default"].pick(req.body, ['first_name', 'last_name', 'username', 'location', 'document', 'services', 'gender', 'email', 'img']);
+            body = _underscore["default"].pick(req.body, ['first_name', 'last_name', 'username', 'location', 'document', 'services', 'gender', 'email', 'phone', 'img']);
 
             _Freelancer["default"].findByIdAndUpdate(req.params.id, body, function (err, __) {
               if (err) {

@@ -59,6 +59,10 @@ var freelancerSchema = new _mongoose.Schema({
     type: String,
     required: true
   },
+  phone: {
+    type: String,
+    required: true
+  },
   status: {
     type: Boolean,
     "default": true

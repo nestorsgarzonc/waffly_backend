@@ -81,6 +81,7 @@ export const freelancerSignUp = async (req, res) => {
         document: req.body.document,
         gender: req.body.gender,
         email: req.body.email,
+        phone: req.body.phone,
         img: req.body.img,
         password: bcrypt.hashSync(req.body.password, 10),
     });

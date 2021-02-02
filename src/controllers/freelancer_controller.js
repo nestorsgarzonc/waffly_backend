@@ -35,6 +35,7 @@ export const updateFreelancer = async (req, res) => {
         'services',
         'gender',
         'email',
+        'phone',
         'img',
     ]);
     Freelancer.findByIdAndUpdate(req.params.id, body, (err, __) => {
