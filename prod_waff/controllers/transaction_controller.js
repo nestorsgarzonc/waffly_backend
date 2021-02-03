@@ -136,7 +136,7 @@ var getTransactionsByUserID = /*#__PURE__*/function () {
             _context3.next = 6;
             return _Transaction["default"].find({
               user_id: user_id
-            }).populate('service_id freelancer_id');
+            }).populate('freelancer_id').populate('service_id');
 
           case 6:
             transactions = _context3.sent;
