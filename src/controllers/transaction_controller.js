@@ -30,7 +30,7 @@ const getTransactionsByUserID = async (req, res = response) => {
         res.status(400).json({ ok: false, message: 'El user id es obligatorio' });
     }
     try {
-        const transactions = await Transaction.find({ user_id }).populate('service_id');
+        const transactions = await Transaction.find({ user_id }).populate('service_id freelancer_id');
         res.json({ ok: true, transactions });
     } catch (error) {
         console.log(error);
