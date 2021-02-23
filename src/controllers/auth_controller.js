@@ -5,23 +5,23 @@ import _ from 'underscore';
 import Freelancer from '../models/Freelancer';
 import User from '../models/User';
 
-export const userLogin = (req, res) => {
-    const errors = validationResult(req);
-    if (errors.errors.length > 0) {
-        return res.status(422).json({ ok: false, message: errors.errors });
-    }
-    User.findOne({ email: req.body.email, status: true }, (err, user) => {
-        if (err) {
-            return res.status(404).json({ ok: false, message: 'Error ', err });
-        } if (!user) {
+export const userLogin = async (req, res) => {
+    try {
+        const errors = validationResult(req);
+        if (errors.errors.length > 0) {
+            return res.status(422).json({ ok: false, message: errors.errors });
+        }
+        const user = await User.findOne({ email: req.body.email, status: true })
+        if (!user) {
             return res.status(404).json({ ok: false, message: 'Usuario no encontrado', err });
         } if (!bcrypt.compareSync(req.body.password, user.password)) {
             return res.status(404).json({ ok: false, message: 'Usuario o contraseña incorrecta', err });
         }
-        // TODO: change user propierties in jwt
-        const token = jwt.sign({ user }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKEN });
-        res.json({ ok: true, user, token });
-    });
+        const token = jwt.sign({ id: user._id, type: user.type }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKEN });
+        return res.json({ ok: true, user, token });
+    } catch (err) {
+        return res.status(404).json({ ok: false, message: 'Error ', err });
+    }
 };
 
 export const userSignUp = async (req, res) => {
@@ -35,37 +35,36 @@ export const userSignUp = async (req, res) => {
         'document',
         'document_type',
         'gender',
-        'img');
-    console.log(props);
+        'img',
+    );
     props.password = bcrypt.hashSync(props.password, 10);
-    console.log(props);
-    const user = User(props);
-    console.log(user);
-    user.save((err, new_user) => {
-        if (err) {
-            console.log(err);
-            return res.status(400).json({ ok: false, message: err });
-        }
-        res.json({ ok: true, message: 'Usuario creado correctamente', ...new_user._doc });
-    });
+    try {
+        const user = User(props);
+        const new_user = await user.save()
+        return res.json({ ok: true, message: 'Usuario creado correctamente', ...new_user._doc });
+    } catch (err) {
+        return res.status(400).json({ ok: false, message: err });
+    }
 };
 
-export const freelancerLogin = (req, res) => {
+export const freelancerLogin = async (req, res) => {
     const errors = validationResult(req);
     if (errors.errors.length > 0) {
         return res.status(422).json({ ok: false, message: errors.errors });
     }
-    Freelancer.findOne({ email: req.body.email }, (err, freelancer) => {
-        if (err) {
-            return res.status(404).json({ ok: false, message: 'Error ', err });
-        } if (!freelancer) {
+    try {
+        const freelancer = await Freelancer.findOne({ email: req.body.email })
+        if (!freelancer) {
             return res.status(404).json({ ok: false, message: 'Freelancer no encontrado', err });
         } if (!bcrypt.compareSync(req.body.password, freelancer.password)) {
             return res.status(404).json({ ok: false, message: 'Freelancer o contraseña incorrecta', err });
         }
-        const token = jwt.sign({ freelancer }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKEN });
-        res.json({ ok: true, freelancer, token });
-    });
+        const token = jwt.sign({ id: freelancer._id, type: freelancer.type }, process.env.SEED, { expiresIn: process.env.CADUCIDAD_TOKEN });
+        return res.json({ ok: true, freelancer, token });
+    } catch (err) {
+        return res.status(404).json({ ok: false, message: 'Error ', err });
+    }
+
 };
 
 export const freelancerSignUp = async (req, res) => {
@@ -73,22 +72,22 @@ export const freelancerSignUp = async (req, res) => {
     if (errors.errors.length > 0) {
         return res.status(422).json({ ok: false, message: errors.errors });
     }
-    const freelancer = Freelancer({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        username: req.body.username,
-        location: req.body.location,
-        document: req.body.document,
-        gender: req.body.gender,
-        email: req.body.email,
-        phone: req.body.phone,
-        img: req.body.img,
-        password: bcrypt.hashSync(req.body.password, 10),
-    });
-    freelancer.save((err, new_freelancer) => {
-        if (err) {
-            return res.status(400).json({ ok: false, message: err });
-        }
+    try {
+        const freelancer = Freelancer({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            username: req.body.username,
+            location: req.body.location,
+            document: req.body.document,
+            gender: req.body.gender,
+            email: req.body.email,
+            phone: req.body.phone,
+            img: req.body.img,
+            password: bcrypt.hashSync(req.body.password, 10),
+        });
+        const new_freelancer = await freelancer.save()
         res.json({ ok: true, message: 'Freelancer creado correctamente', ...new_freelancer._doc });
-    });
+    } catch (err) {
+        return res.status(400).json({ ok: false, message: err });
+    }
 };
