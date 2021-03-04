@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import _ from 'underscore';
 import Freelancer from '../models/Freelancer';
 import User from '../models/User';
+import { OAuth2Client } from 'google-auth-library'
 
 export const userLogin = async (req, res) => {
     try {
@@ -21,6 +22,27 @@ export const userLogin = async (req, res) => {
         return res.json({ ok: true, user, token });
     } catch (err) {
         return res.status(404).json({ ok: false, message: 'Error ', err });
+    }
+};
+
+export const userLoginWithGoogle = async (req, res) => {
+    try {
+        const token = req.body.token
+        if (!token) {
+            return res.status(400).json({ ok: false, message: 'No se recibio el token' })
+        }
+        //TODO: Add all client id for different plattforms in audience
+        const client = new OAuth2Client('//TODO: CLIENT_ID');
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: [CLIENT_ID],  // Specify the CLIENT_ID of the app that accesses the backend
+            // Or, if multiple clients access the backend:
+            //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+        });
+        const payload = ticket.getPayload();
+        const userid = payload['sub'];
+    } catch (err) {
+        return res.status(400).json({ ok: false, message: err })
     }
 };
 

@@ -12,6 +12,11 @@ router.post(
 );
 
 router.post(
+    '/user/login-with-google',
+    authController.userLoginWithGoogle,
+);
+
+router.post(
     '/user/signup',
     authController.userSignUp,
 );
